@@ -25,6 +25,9 @@ function checkSeat(passenger)
 let arrayseat =[ [3,2], [4,3], [2,3], [3,4] ];
 let totalPassengers=30;
 
+console.log('arrayseat :');
+console.log(arrayseat);
+
 let passengers = 1;
 let highestColumn=getHighestIndexOne(arrayseat);
 
@@ -66,58 +69,58 @@ try
       }
     }
     column = 0;
-  row= arrayseat.length - 1;
-  if(count<arrayseat[arrayseat.length - 1][1])
-  {
-    arrayrow=generateArray(arrayseat[arrayseat.length - 1][0]);
-    arrayrow[column] = passengers++;
-    arraySection[row]=[...arrayrow];
-  }
-  arrayResault.push(arraySection);
-  
-  arrayrow=[];
-}
-
-// now windows seat
-for(let count=0;count<highestColumn;count++)
-{
-  arraySection=[];
-  arrayrow=[]
-  if(count<arrayseat[0][1])
-  {
-    row=0;
-    arrayrow=generateArray(arrayseat[0][row]);
-    column = 0;
-    arrayrow[column] = passengers++;
-    arraySection[row]=[...arrayrow];
-    arrayResault[count][row][0]=arrayrow[0];
-  }
-  
-  if(count<arrayseat[arrayseat.length - 1][1])
-  {
-    column = arrayseat[0][0]-1;
     row= arrayseat.length - 1;
-    arrayrow=generateArray(arrayseat[arrayseat.length - 1][0]);
-    arrayrow[column] = passengers++;
-    arraySection[row]=[...arrayrow];
-    arrayResault[count][row][column]=arrayrow[column];
+    if(count<arrayseat[arrayseat.length - 1][1])
+    {
+      arrayrow=generateArray(arrayseat[arrayseat.length - 1][0]);
+      arrayrow[column] = passengers++;
+      arraySection[row]=[...arrayrow];
+    }
+    arrayResault.push(arraySection);
+    
+    arrayrow=[];
   }
-}
 
-// now middle seat
-for (let i = 0; i < arrayResault.length; i++) {
-  for (let j = 0; j < arrayResault[i].length; j++) {
-    if (arrayResault[i][j]) { // check if item is not empty
-      for (let k = 1; k < arrayResault[i][j].length-1; k++) {
-        arrayResault[i][j][k] = checkSeat(passengers++);
+  // now windows seat
+  for(let count=0;count<highestColumn;count++)
+  {
+    arraySection=[];
+    arrayrow=[]
+    if(count<arrayseat[0][1])
+    {
+      row=0;
+      arrayrow=generateArray(arrayseat[0][row]);
+      column = 0;
+      arrayrow[column] = passengers++;
+      arraySection[row]=[...arrayrow];
+      arrayResault[count][row][0]=arrayrow[0];
+    }
+    
+    if(count<arrayseat[arrayseat.length - 1][1])
+    {
+      column = arrayseat[0][0]-1;
+      row= arrayseat.length - 1;
+      arrayrow=generateArray(arrayseat[arrayseat.length - 1][0]);
+      arrayrow[column] = passengers++;
+      arraySection[row]=[...arrayrow];
+      arrayResault[count][row][column]=arrayrow[column];
+    }
+  }
+
+  // now middle seat
+  for (let i = 0; i < arrayResault.length; i++) {
+    for (let j = 0; j < arrayResault[i].length; j++) {
+      if (arrayResault[i][j]) { // check if item is not empty
+        for (let k = 1; k < arrayResault[i][j].length-1; k++) {
+          arrayResault[i][j][k] = checkSeat(passengers++);
+        }
       }
     }
   }
-}
 
-// if there is no more seat
-if(totalPassengers>passengers)
-console.log('there is '+(totalPassengers-passengers+1)+' passengers do not have seats');
+  // if there is no more seat
+  if(totalPassengers>passengers)
+  console.log('there is '+(totalPassengers-passengers+1)+' passengers do not have seats');
 }
 catch(err)
 {
